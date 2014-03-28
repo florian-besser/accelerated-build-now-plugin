@@ -9,8 +9,8 @@ Simply clone this repo and run mvn clean install hpi:run
 Download the [latest release](https://github.com/florian-besser/accelerated-build-now-plugin/releases) and use Jenkins installer advanced tab to upload and install it to Jenkins.
 
 ## How to use :
-When your Jenkins cluster is overloaded with jobs (a queue with 10+ builds, all the executors busy with nightly builds that take ages), you know you will wait ages before the job you want to run effectively starts running.
-Relax ! With the Accelerated Build Now Plugin, your job will run right away !
+When your Jenkins cluster is overloaded with jobs (for example a queue with 10+ builds, all the executors busy with nightly builds that take ages), you know you will wait ages before the job you want to run effectively starts running.
+Relax ! With the Accelerated Build Now Plugin, your job will get scheduled with top priority !
 
 1. The queue is full of automatically (not user launched) scheduled jobs, and the only executor available is busy ...
 
@@ -20,15 +20,9 @@ Relax ! With the Accelerated Build Now Plugin, your job will run right away !
 
 ![Screenshot](https://raw.github.com/Terracotta-OSS/accelerated-build-now-plugin/gh-pages/screenshots/accelerated_button.png "Accelerated Build Now !")
 
-3. Your maven-surefire job just got priorized to the top of the queue and just started running (it had to kill the quartz job, but it rescheduled it already)
+3. Your maven-surefire job just got priorized to the top of the queue and will start running as soon as the next executor becomes available.
 
-![Screenshot](https://raw.github.com/Terracotta-OSS/accelerated-build-now-plugin/gh-pages/screenshots/job_running.png "Your job is running")
-
-4. A nice rhyno badge was added to your build that got "acceleratedly built" ; if you click on it you will see the killed build got a killed rhyno badge
-
-![Screenshot](https://raw.github.com/Terracotta-OSS/accelerated-build-now-plugin/gh-pages/screenshots/build_prioritized.png "Killer Rhyno !")
-
-![Screenshot](https://raw.github.com/Terracotta-OSS/accelerated-build-now-plugin/gh-pages/screenshots/build_aborted.png "Killed Rhyno !")
+4. A nice rhyno badge was added to your build that got "acceleratedly built".
 
 ## How does that work ?
 When you click on the Accelerated Build Now button, the plugin will :
