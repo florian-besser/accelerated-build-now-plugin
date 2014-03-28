@@ -103,39 +103,13 @@ public class AcceleratedBuildNowAction implements Action {
     // we sort the queue so that our project is next to be built on the list
     Jenkins.getInstance().getQueue().getSorter().sortBuildableItems(Jenkins.getInstance().getQueue().getBuildableItems());
 
-    AbstractBuild killedBuild = null;
-    List<AbstractProject> allItems = Jenkins.getInstance().getAllItems(AbstractProject.class);
-    for (AbstractProject projectConsidered : allItems) {
-      AbstractBuild lastBuild = getLastBuild(projectConsidered);
 
-      if (lastBuild != null && lastBuild.isBuilding()) {
-        if (isBuildNotTriggeredByHuman(lastBuild) && slaveRunningBuildCompatible(lastBuild, assignedLabel)
-            && !(projectConsidered instanceof MatrixProject) && !(projectConsidered instanceof MatrixConfiguration)) {
-          LOG.info("project : " + lastBuild.getProject().getName() + " #" + lastBuild.getNumber() + " was not scheduled by a human, killing it right now to re schedule it later !");
-          Executor executor = getExecutor(lastBuild);
-          executor.interrupt(Result.ABORTED);
-          killedBuild = lastBuild;
-          break;
-        }
-      }
-    }
+    AbstractBuild projectBuild = ((Future<AbstractBuild>) queueTaskFuture.getStartCondition()).get();
+    LOG.info("build #" + projectBuild.getNumber() + " for " + project.getName() + " was launched successfully !");
 
-    if (killedBuild == null) {
-      LOG.info("project : " + project.getName()
-          + " could not be acceleratedly built (no builds could be aborted) : 'normal' build was triggered though !");
-    } else {
-      AbstractBuild projectBuild = ((Future<AbstractBuild>) queueTaskFuture.getStartCondition()).get();
-      LOG.info("build #" + projectBuild.getNumber() + " for " + project.getName() + " was launched successfully !");
+    // we add a nice badge to the killer build
+    projectBuild.getActions().add(new AcceleratedBuildNowBadgeAction(null));
 
-      // we add a nice badge to the killer build
-      projectBuild.getActions().add(new AcceleratedBuildNowBadgeAction(killedBuild));
-
-      // we add a nice badge to the killeD build
-      killedBuild.getActions().add(new AcceleratedBuildNowVictimBadgeAction(projectBuild));
-
-      // we re schedule the build that got killed
-      rescheduleKilledBuild(killedBuild, new AcceleratedBuildNowKilledCause(), originalQueueSorter);
-    }
     Jenkins.getInstance().getQueue().setSorter(originalQueueSorter);
 
     response.sendRedirect(request.getContextPath() + '/' + project.getUrl());

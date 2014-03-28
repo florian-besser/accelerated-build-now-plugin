@@ -19,10 +19,10 @@ public class AcceleratedBuildNowBadgeAction implements BuildBadgeAction{
   public String getIconPath() { return ICON_PATH; }
 
   @Exported
-  public String getKilledBuildUrl() { return killedBuild.getProject().getUrl(); }
+  public String getKilledBuildUrl() { return "none"; }
 
   @Exported
-  public String getText() { return "This build was top priority built. It aborted and re scheduled " + killedBuild.getProject().getName() + " #" + killedBuild.getNumber(); }
+  public String getText() { return "This build was top priority built."; }
 
   public String getDisplayName() {
     return "";

@@ -1,12 +1,12 @@
 Accelerated Build Now Plugin
 ============================
-The Jenkins Accelerated Build Now Plugin allows Jenkins users to launch a project's build right away, even if the queue is long (moving it to the top of the queue) and even if no executor is available (killing and rescheduling builds not launched by "humans")
+The Jenkins Accelerated Build Now Plugin allows Jenkins users to launch a project's build right away, even if the queue is long (moving it to the top of the queue) but without killing off jobs if no executor is available.
 
 ## How to build and test :
 Simply clone this repo and run mvn clean install hpi:run
 
 ## How to install :
-Download the [latest release](https://github.com/Terracotta-OSS/accelerated-build-now-plugin/releases) and use Jenkins installer advanced tab to upload and install it to Jenkins.
+Download the [latest release](https://github.com/florian-besser/accelerated-build-now-plugin/releases) and use Jenkins installer advanced tab to upload and install it to Jenkins.
 
 ## How to use :
 When your Jenkins cluster is overloaded with jobs (a queue with 10+ builds, all the executors busy with nightly builds that take ages), you know you will wait ages before the job you want to run effectively starts running.
@@ -34,13 +34,15 @@ Relax ! With the Accelerated Build Now Plugin, your job will run right away !
 When you click on the Accelerated Build Now button, the plugin will :
 * make sure the queue is not empty and all the excutors are busy ( if not, it will normally schedule the build and exit)
 * sort the queue using a QueueSorter wrapping any existing QueueSorter (such as the Priority Sorter Plugin queue sorter)
-* look for any executors compatible with this job (checking labels) and running a job not scheduled by a "human" (SCM triggered, cron style triggered, etc..); if none is found, exit
-* if a compatible executor is found: abort the build (and re schedule it for later) and mark it as killed by the plugin, wait for the accelerated build to start, mark it as accelerated
 
 ## Authors :
 This plugin was developed by Terracotta, by
 
 - [Anthony Dahanne](https://github.com/anthonydahanne/)
+
+It was then forked and the feature to kill builds removed, by
+
+- [Florian Besser](https://github.com/florian-besser/)
 
 ## License
 Apache 2 licensed (see LICENSE.txt)
