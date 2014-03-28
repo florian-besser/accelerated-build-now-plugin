@@ -103,12 +103,7 @@ public class AcceleratedBuildNowAction implements Action {
     // we sort the queue so that our project is next to be built on the list
     Jenkins.getInstance().getQueue().getSorter().sortBuildableItems(Jenkins.getInstance().getQueue().getBuildableItems());
 
-
-    AbstractBuild projectBuild = ((Future<AbstractBuild>) queueTaskFuture.getStartCondition()).get();
-    LOG.info("build #" + projectBuild.getNumber() + " for " + project.getName() + " was launched successfully !");
-
-    // we add a nice badge to the killer build
-    projectBuild.getActions().add(new AcceleratedBuildNowBadgeAction(null));
+    LOG.info("build for " + project.getName() + " was launched successfully !");
 
     Jenkins.getInstance().getQueue().setSorter(originalQueueSorter);
 

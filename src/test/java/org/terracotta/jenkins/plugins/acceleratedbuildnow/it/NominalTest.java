@@ -54,9 +54,9 @@ public class NominalTest extends HudsonTestCase {
     }
 
     FreeStyleBuild job1firstBuild = job1.getBuilds().getFirstBuild();
-    // assertBuildStatus(Result.ABORTED, job1firstBuild);
+    assertBuildStatus(Result.SUCCESS, job1firstBuild);
 
-    FreeStyleBuild job1lastBuild = job1.getBuilds().getLastBuild();
+    // FreeStyleBuild job1lastBuild = job1.getBuilds().getLastBuild();
     // assertBuildStatus(Result.SUCCESS, job1lastBuild);
 
     // assertEquals(1, acceleratedJob.getBuilds().size());

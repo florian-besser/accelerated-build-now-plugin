@@ -71,7 +71,7 @@ public class CantAbortMatrixBuildTest extends HudsonTestCase {
     List<MatrixRun> exactRuns = job1LastBuild.getExactRuns();
     assertBuildStatus(Result.SUCCESS, job1LastBuild);
 
-    assertEquals(2, acceleratedJob.getBuilds().size());
+    assertEquals(1, acceleratedJob.getBuilds().size());
     FreeStyleBuild acceleratedJobOnlyBuild = acceleratedJob.getBuilds().getLastBuild();
     assertBuildStatus(Result.SUCCESS, acceleratedJobOnlyBuild);
 
