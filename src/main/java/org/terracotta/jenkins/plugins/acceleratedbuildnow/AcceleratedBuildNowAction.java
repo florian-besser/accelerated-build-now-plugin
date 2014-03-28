@@ -103,7 +103,7 @@ public class AcceleratedBuildNowAction implements Action {
     // we sort the queue so that our project is next to be built on the list
     Jenkins.getInstance().getQueue().getSorter().sortBuildableItems(Jenkins.getInstance().getQueue().getBuildableItems());
 
-    LOG.info("build for " + project.getName() + " was launched successfully !");
+    LOG.info("build for " + project.getName() + " was placed in the queue with top priority !");
 
     Jenkins.getInstance().getQueue().setSorter(originalQueueSorter);
 
