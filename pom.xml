@@ -9,7 +9,7 @@
 
   <groupId>org.terracotta.jenkins.plugins</groupId>
   <artifactId>accelerated-build-now-plugin</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.0.2-SNAPSHOT(private-03/28/2014 13:00-TAABEFL1)</version>
   <packaging>hpi</packaging>
 
   <dependencies>
